@@ -18,6 +18,7 @@ import {
   jsonSchema,
 } from "ai";
 import { getModel } from "../../../lib/generic-ai";
+import { config } from "../../../config";
 import { z } from "zod";
 import fs from "fs/promises";
 import Ajv from "ajv";
@@ -51,14 +52,14 @@ function selectModelForSchema(schema?: any): {
   const isRecursive = detectRecursiveSchema(schema);
 
   if (isRecursive) {
-    logger.info(`Model: gpt-4.1 | hasRef: true`);
+    logger.info(`Model: ${config.MODEL_NAME || "gpt-4.1"} | hasRef: true`);
     return {
       modelName: "gpt-4.1",
       reason: "recursive_schema_detected",
     };
   }
 
-  logger.info(`Model: gpt-4o-mini | hasRef: false`);
+  logger.info(`Model: ${config.MODEL_NAME || "gpt-4o-mini"} | hasRef: false`);
   return {
     modelName: "gpt-4o-mini",
     reason: "simple_schema",

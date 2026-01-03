@@ -2,6 +2,8 @@ Firecrawl is a web scraper API. The directory you have access to is a monorepo:
  - `apps/api` has the actual API and worker code
  - `apps/js-sdk`, `apps/python-sdk`, and `apps/rust-sdk` are various SDKs
 
+For local development and PowerShell instructions, see `LOCAL_DEVELOPMENT_GUIDE.md`.
+
 When making changes to the API, here are the general steps you should take:
 1. Write some end-to-end tests that assert your win conditions, if they don't already exist
   - 1 happy path (more is encouraged if there are multiple happy paths with significantly different code paths taken)
