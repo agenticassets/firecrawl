@@ -12,7 +12,13 @@ Firecrawl provides advanced AI capabilities for scraping and structured data ext
 
 Extraction logic is primarily located in `apps/api/src/lib/extract/`.
 - Support for both schema-based extraction (JSON schema) and prompt-based extraction.
-- Support for multiple AI providers (OpenAI, Anthropic, Ollama, etc.) via the `ai` package and custom providers.
+- **Preferred Provider**: **OpenRouter** is the primary AI provider for this project.
+- **Model Configuration**: Use `MODEL_NAME` in `.env` (e.g., `xiaomi/mimo-v2-flash:free`).
+- **Logging**: All extraction jobs are logged to Supabase when DB authentication is enabled. 
+    - Jobs via `/extract` are logged to the `extracts` table.
+    - Jobs via `/scrape` with extraction formats are logged to the `scrapes` table.
+- **⚠️ SAFETY**: When logging to Supabase, ensure you only interact with Firecrawl-specific tables. Do not affect any CamelCase tables belonging to the shared AI application.
+- Support for multiple AI providers via the `ai` package and custom providers.
 
 ## Key Components
 

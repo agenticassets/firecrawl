@@ -25,7 +25,7 @@ The entry point for scraping is `apps/api/src/scraper/scrapeURL/index.ts`.
 When working with engines:
 1. **Interfaces**: Ensure the engine implements the expected interface for receiving metadata and returning results.
 2. **Aborts & Timeouts**: Use `meta.abort.scrapeTimeout()` to respect the requested timeout.
-3. **Error Reporting**: Map engine-specific errors to standard Firecrawl errors for consistent API responses.
+3. **Error Reporting & Logging**: Map engine-specific errors to standard Firecrawl errors. Ensure all scrapes are logged to Supabase via the `logScrape` service.
 
 ## Resource Management
 

@@ -23,6 +23,7 @@ Whenever a new feature is added to the API (e.g., a new scrape format or a new e
 - **Idiomaticity**: While features should be consistent, the implementation should feel idiomatic to the language (e.g., use Pydantic in Python, Zod in JS, Serde in Rust).
 - **Naming**: Use consistent parameter names across SDKs where possible (e.g., `scrapeOptions`, `pollInterval`).
 - **Error Handling**: Provide clear, language-specific error messages that map to the API's error responses.
+- **Authentication**: All SDKs must support the `fc-` prefixed API keys used by the authenticated API.
 
 ## Licensing
 

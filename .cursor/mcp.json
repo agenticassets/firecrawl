@@ -1,0 +1,21 @@
+{
+    "mcpServers": {
+      "supabase": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@supabase/mcp-server-supabase",
+          "--project-ref=fhqycqubkkrdgzswccwd"
+        ],
+        "env": {
+          "SUPABASE_ACCESS_TOKEN": "sbp_23ad5cc9d6c2304c25652363c0e9954d9824b03b"
+        }
+      },
+      "Github": {
+        "type": "http",
+        "url": "https://server.smithery.ai/@smithery-ai/github/mcp?api_key=ba306a82-1ec2-490d-b721-682858c8c018&profile=chosen-turkey-YoJAwE",
+        "headers": {}
+      }
+    }
+  }
+  

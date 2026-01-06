@@ -1,0 +1,88 @@
+According to a document from **December 2025**, Orbis is positioned as an **evidence-first** research environment where **citations are default**, and the core UX is a repeatable “Research Cycle” (Plan → Retrieve → Synthesize → Refine → Persist) with strong **transparency/provenance** surfaces.  A related strategy doc frames the flagship agent around **Graph RAG transparency** (source-to-response connections) as a trust moat in conservative institutional workflows.
+
+Below are name options built to *sound like an agent*, stay **short + brandable**, and semantically nod to **evidence, provenance, graphs, cycles, and institutional-grade research**.
+
+## Shortlist (most “on brand”)
+
+* **Evidra**
+* **Evidor**
+* **Citera**
+* **Citor**
+* **Provyn**
+* **Provena**
+* **Veruna**
+* **Verido**
+* **Nexion**
+* **Nexor**
+* **Grafyn**
+* **Graphio**
+* **Nodera**
+* **Arcus**
+* **Arclio**
+* **Arqon**
+* **Orvex**
+* **Orbix**
+* **Orvyn**
+* **Lumenix**
+* **Thesyn**
+* **Quantor**
+* **Portex**
+* **Novus**
+* **Solura**
+
+## Long list (append “.ai” to any of these)
+
+### Orbis-adjacent (orbital / “agent-name” vibe)
+
+* orbex, orbisio, orbix, orbyx, orvera, orvex
+* orvexa, orvio, orvion, orvium, orvius, orvix
+* orvlio, orvlyn, orvor, orvus, orvyn, orxio
+* orxlyn, orxor, orxum
+
+### Evidence / citation / provenance (trust-by-design)
+
+* citera, citor, citron, evidex, evidio, evidius
+* evidlyn, evidor, evidra, evidum, evidyn, eviex
+* evilyn, evium, evius, eviyn, provena, provero
+* provex, provio, provius, provlyn, provor, provus
+* verex, verido, veriox, verix, verlyn, veror
+* verum, veruna, verus, verux, verxio
+
+### Graph / nexus / knowledge-structure (RAG + transparency cues)
+
+* grafex, grafix, grafyn, graphex, graphio, nexex
+* nexio, nexion, nexius, nexlyn, nexor, nexora
+* nexum, nexus, nodeon, nodera
+
+### Finance / analyst workflow cues (quant, portfolio, structure)
+
+* axiex, axilio, axilyn, aximus, axiomix, axium
+* deltae, deltaix, deltex, deltor, deltus, neoix
+* neous, novex, novlyn, novus, quantio, quantix
+* quantlyn, quantor, quantus, quantyn, portex, portix
+* portlyn, portor, portus, sigex, sigio, siglyn
+* sigor, sigus, solix, sollyn, solor, solus
+* striex, strio, strix, strlyn, stror, strus
+* thesex, thesio, thesix, theslyn, thesor, thesus
+
+### Synthetic “clean-tech” names (short, brandable, domain-likely)
+
+* arcion, arcix, arclio, arcus, arqex, arqio
+* arqix, arqon, arqor, arqum, arqus, arqyn
+* atlex, axlio, axlyn, evior, evium, grafio
+* knoxio, lumeno, lumenix, lumera, neoix, neous
+* nexra, novex, novlyn, orvlio, pactex, pactix
+* pactor, pactus, provlio, proix, ratiex, sigra
+* solra, strua, struxi, vexex, vexio, vexlio
+* vexlyn, vexor, vexus, vexyn
+
+## If you want to keep “Orbis” *as the product name* but change the domain (fallback)
+
+If you decide brand continuity matters more than a full rename, you can sometimes keep **Orbis** in-market and use a domain that’s still clean (examples): **orbisapp**, **orbishq**, **orbisai**, **orbisworks**, **orbisresearch**. (You’d still need availability checks.)
+
+## Practical screening (fast)
+
+* Avoid names ending in **“-ai”** if you plan to use **.ai** (reduces awkward “xai.ai” patterns).
+* Run a **bulk domain search** across **.ai / .app / .com / .io** for your top ~25, then do a quick trademark screen before you emotionally commit.
+
+References (attached docs):   

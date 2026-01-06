@@ -157,30 +157,34 @@ If you’d like to test the crawl endpoint, you can run this:
 
 This section provides solutions to common issues you might encounter while setting up or running your self-hosted instance of Firecrawl.
 
+### Supabase configuration (Optional)
+
+Firecrawl supports using Supabase as a backend for persistent logging and authentication. To enable this, set `USE_DB_AUTHENTICATION=true` and provide your Supabase credentials.
+
+```bash
+# Supabase Setup
+USE_DB_AUTHENTICATION=true
+SUPABASE_URL=your-project-url
+SUPABASE_ANON_TOKEN=your-anon-key
+SUPABASE_SERVICE_TOKEN=your-service-role-key
+```
+
+When enabled, Firecrawl will log all scrapes and crawls to the `scrapes`, `crawls`, and `requests` tables in your Supabase project.
+
+#### Database Setup for Supabase
+
+To use Supabase, you must initialize your database with the required tables and RPCs (Stored Procedures).
+
+1.  **Initialize Queuing Schema**: Run the SQL in `apps/nuq-postgres/nuq.sql` in your Supabase SQL Editor.
+2.  **Initialize Core Tables**: Create the following tables in the `public` schema: `api_keys`, `teams`, `requests`, `scrapes`, `crawls`, `batch_scrapes`, `maps`, `searches`, `extracts`, `llmstxts`, `deep_researches`.
+    - **Note**: Ensure the `scrapes` table includes a `content` column (type `text`) and the `extracts` table includes a `result` column (type `jsonb`) for persistent storage.
+3.  **Initialize RPCs**: Since self-hosted instances often need to bypass cloud-specific credit checks, you should create mock RPCs that return high limits.
+
+For a complete "Self-Hosted Supabase" SQL script, please refer to the `apps/nuq-postgres/supabase-setup.sql` which initializes the required tables and mock RPCs to return default success values.
+
 ### API Keys for SDK Usage
 
-**Note:** When using Firecrawl SDKs with a self-hosted instance, API keys are optional. API keys are only required when connecting to the cloud service (api.firecrawl.dev).
-
-### Supabase client is not configured
-
-**Symptom:**
-```bash
-[YYYY-MM-DDTHH:MM:SS.SSSz]ERROR - Attempted to access Supabase client when it's not configured.
-[YYYY-MM-DDTHH:MM:SS.SSSz]ERROR - Error inserting scrape event: Error: Supabase client is not configured.
-```
-
-**Explanation:**
-This error occurs because the Supabase client setup is not completed. You should be able to scrape and crawl with no problems. Right now it's not possible to configure Supabase in self-hosted instances.
-
-### You're bypassing authentication
-
-**Symptom:**
-```bash
-[YYYY-MM-DDTHH:MM:SS.SSSz]WARN - You're bypassing authentication
-```
-
-**Explanation:**
-This error occurs because the Supabase client setup is not completed. You should be able to scrape and crawl with no problems. Right now it's not possible to configure Supabase in self-hosted instances.
+**Note:** When using Firecrawl SDKs with a self-hosted instance, API keys are optional unless `USE_DB_AUTHENTICATION` is set to `true`. If enabled, you must create a team and an API key in the `teams` and `api_keys` tables respectively.
 
 ### Docker containers fail to start
 

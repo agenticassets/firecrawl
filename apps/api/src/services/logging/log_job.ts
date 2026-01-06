@@ -246,6 +246,7 @@ export async function logScrape(scrape: LoggedScrape, force: boolean = false) {
           ? previewTeamId
           : scrape.team_id,
       options: scrape.zeroDataRetention ? null : scrape.options,
+      content: scrape.zeroDataRetention ? null : (scrape.doc?.markdown || scrape.doc?.html || null),
       cost_tracking: scrape.zeroDataRetention
         ? null
         : (scrape.cost_tracking ?? null),
@@ -486,6 +487,7 @@ export async function logExtract(
       credits_cost: extract.credits_cost,
       is_successful: extract.is_successful,
       error: extract.error ?? null,
+      result: extract.result ?? null,
       cost_tracking: extract.cost_tracking ?? null,
     },
     force,
