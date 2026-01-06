@@ -116,4 +116,5 @@ Write-Host "Total checked: $($results.Count)" -ForegroundColor Cyan
 # Display summary
 $successful = ($results | Where-Object { $_.status -eq "success" }).Count
 $failed = ($results | Where-Object { $_.status -eq "error" }).Count
-Write-Host "Successful: $successful | Failed: $failed" -ForegroundColor Cyan
+Write-Host "Successful: $successful" -ForegroundColor Cyan
+Write-Host "Failed: $failed" -ForegroundColor Cyan
