@@ -10,8 +10,15 @@ This folder gives you a simple, repeatable workflow to check domain availability
 - `check-domains.py`: Python version (same behavior as the Node script).
 
 ## Output
-- `out/results.json` (full structured results)
-- `out/results.csv` (easy to sort/filter)
+- Per-run outputs:
+  - `out/runs/<runId>/results.json` (full structured results)
+  - `out/runs/<runId>/results.csv` (easy to sort/filter)
+
+- Running (append-only) outputs:
+  - `out/results.json` (JSON array of run objects)
+  - `out/results.csv` (CSV ledger of all rows across runs)
+
+Re-running will skip domains already present in the running JSON ledger.
 
 ## Requirements
 - Node.js 18+ (uses built-in `fetch`)
@@ -43,6 +50,17 @@ $env:FIRECRAWL_API_URL = "http://localhost:3002"
 
 python .\examples\domain-availability\check-domains.py
 ```
+
+### API key format (important)
+If `USE_DB_AUTHENTICATION=true` is enabled on your Firecrawl API, the token must be either:
+- The raw UUID with dashes (as stored in the `api_keys.key` column), e.g. `31dba252-4827-4998-9356-775a972cd48a`
+- OR the `fc-` form **without dashes**, e.g. `fc-31dba252482749989356775a972cd48a`
+
+If you use `fc-` *with* dashes (like `fc-31dba252-...`), the API will reject it as `Unauthorized: Invalid token`.
+
+### Windows networking tip
+If `http://localhost:3002` ever behaves oddly on Windows (e.g., an “Empty reply from server”), try:
+- `http://127.0.0.1:3002`
 
 ## Notes / caveats
 - This uses a third-party UI site (InstantDomainSearch). If they change markup or add bot protection, results can degrade.

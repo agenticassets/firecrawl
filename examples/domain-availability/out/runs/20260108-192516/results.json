@@ -1,0 +1,25 @@
+{
+  "runId": "20260108-192516",
+  "startedAt": "2026-01-08T19:25:16.108Z",
+  "finishedAt": "2026-01-08T19:25:27.502Z",
+  "apiUrl": "http://localhost:3002",
+  "scrapePath": "/v1/scrape",
+  "count": 1,
+  "successCount": 1,
+  "failureCount": 0,
+  "skippedCount": 2,
+  "results": [
+    {
+      "domain": "levident.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=levident.ai",
+      "index": 1,
+      "timestamp": "2026-01-08T19:25:16.113Z",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "Found 'Continue' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    }
+  ]
+}

@@ -1,4 +1,4 @@
-import { readFileSync, mkdirSync, writeFileSync, existsSync } from "node:fs";
+import { readFileSync, mkdirSync, writeFileSync, existsSync, appendFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -73,10 +73,21 @@ function sleep(ms) {
 
 function parseDomainsFile(filePath) {
   const raw = readFileSync(filePath, "utf8");
-  return raw
+  const lines = raw
     .split(/\r?\n/)
     .map((l) => l.trim())
     .filter((l) => l && !l.startsWith("#"));
+
+  // De-dupe while preserving order
+  const seen = new Set();
+  const out = [];
+  for (const d of lines) {
+    const k = d.toLowerCase();
+    if (seen.has(k)) continue;
+    seen.add(k);
+    out.push(d);
+  }
+  return out;
 }
 
 function csvEscape(value) {
@@ -99,20 +110,60 @@ function normalizeExtract(extract) {
   return null;
 }
 
-function inferAvailabilityFromMarkdown(markdown) {
+function inferAvailabilityFromMarkdown(markdown, domain) {
   if (!markdown) return { availability: "unknown", price: null, notes: "No markdown" };
 
-  const text = markdown.toLowerCase();
+  const lines = markdown.split(/\r?\n/);
+  const domainNeedle = `[${domain}](`;
+  const domainLineIndex = lines.findIndex((l) => l.includes(domainNeedle) || l.includes(domain));
+  if (domainLineIndex < 0) {
+    return { availability: "unknown", price: null, notes: "Domain not found in markdown" };
+  }
+
+  const windowStart = Math.max(0, domainLineIndex - 10);
+  const windowEnd = Math.min(lines.length, domainLineIndex + 40);
+  const windowLines = lines.slice(windowStart, windowEnd);
+  const windowText = windowLines.join("\n").toLowerCase();
+
+  // Availability: use local cues near the searched domain (avoid global marketing text).
   let availability = "unknown";
+  if (windowText.includes("make offer") || windowText.includes("whois")) {
+    availability = "taken";
+  }
+  if (windowText.includes("continue")) {
+    availability = "available";
+  }
 
-  // Heuristics (best-effort)
-  if (/(\bavailable\b|\bfor sale\b|\bregister\b)/i.test(markdown)) availability = "available";
-  if (/(\btaken\b|\bregistered\b|\bunavailable\b)/i.test(markdown)) availability = "taken";
+  // Price: only accept a $ amount that appears to be associated with THIS domain.
+  // The page often lists prices for other domains/extensions; we intentionally ignore those.
+  let price = null;
+  for (let i = domainLineIndex; i < Math.min(lines.length, domainLineIndex + 12); i++) {
+    const line = lines[i].trim();
 
-  const priceMatch = markdown.match(/\$[\d,]+(?:\.\d{2})?/);
-  const price = priceMatch ? priceMatch[0] : null;
+    // If we hit another domain link before a price, stop (price is likely for a different domain).
+    if (i !== domainLineIndex && /^\[[^\]]+\]\([^)]*\)/.test(line) && line.includes(".") && !line.includes(domain)) {
+      break;
+    }
 
-  return { availability, price, notes: "Parsed from markdown" };
+    // InstantDomainSearch prices often render as their own markdown link: [$12,345](...)
+    const m = line.match(/\$[\d,]+(?:\.\d{2})?/);
+    if (m) {
+      price = m[0];
+      break;
+    }
+  }
+
+  const notesParts = [];
+  if (availability === "available") notesParts.push("Found 'Continue' near domain");
+  if (availability === "taken") notesParts.push("Found 'Make offer/WHOIS' near domain");
+  if (price) notesParts.push("Found price near domain");
+  if (!price) notesParts.push("No domain-specific price found");
+
+  return {
+    availability,
+    price,
+    notes: notesParts.join("; "),
+  };
 }
 
 async function firecrawlScrape({ apiUrl, apiKey, scrapePath, url, timeoutMs, waitForMs }) {
@@ -198,11 +249,141 @@ async function runPool(items, worker, concurrency) {
   return results;
 }
 
+function safeRunIdFromIso(iso) {
+  // Windows-safe folder name
+  // 2026-01-08T19:15:26.666Z -> 20260108-191526
+  return iso
+    .replace(/\.\d+Z$/, "Z")
+    .replace(/\+\d\d:\d\d$/, "Z")
+    .replace(/[-:]/g, "")
+    .replace("T", "-")
+    .replace(/Z$/, "")
+    .slice(0, 15);
+}
+
+function loadRunningRunsJson(resultsJsonPath) {
+  if (!existsSync(resultsJsonPath)) return [];
+  try {
+    const parsed = JSON.parse(readFileSync(resultsJsonPath, "utf8"));
+    if (Array.isArray(parsed)) return parsed;
+    if (parsed && typeof parsed === "object" && Array.isArray(parsed.results)) {
+      // Old format: single run object
+      return [parsed];
+    }
+    return [];
+  } catch {
+    return [];
+  }
+}
+
+function buildCheckedDomainSetFromRuns(runs) {
+  const checked = new Set();
+  for (const run of runs) {
+    const results = run?.results;
+    if (!Array.isArray(results)) continue;
+    for (const r of results) {
+      const domain = r?.domain;
+      if (typeof domain === "string" && domain.trim()) checked.add(domain.trim().toLowerCase());
+    }
+  }
+  return checked;
+}
+
+function ensureRunningCsvHasV2Header(resultsCsvPath, headerV2) {
+  if (!existsSync(resultsCsvPath)) return;
+  const firstLine = readFileSync(resultsCsvPath, "utf8").split(/\r?\n/)[0] ?? "";
+  if (firstLine.trim() === headerV2.join(",")) return;
+
+  // Upgrade legacy v1 header to v2 by rewriting once.
+  const legacyHeader = [
+    "domain",
+    "availability",
+    "price",
+    "notes",
+    "ok",
+    "error",
+    "searchUrl",
+    "timestamp",
+  ].join(",");
+  if (firstLine.trim() !== legacyHeader) return;
+
+  const lines = readFileSync(resultsCsvPath, "utf8").split(/\r?\n/).filter(Boolean);
+  const outLines = [headerV2.join(",")];
+  for (let i = 1; i < lines.length; i++) {
+    // Prefix empty run metadata for historical rows
+    outLines.push(["", "", "", lines[i]].join(","));
+  }
+  writeFileSync(resultsCsvPath, outLines.join("\n") + "\n", "utf8");
+}
+
+function repairGluedCsvRows(resultsCsvPath) {
+  if (!existsSync(resultsCsvPath)) return;
+  const raw = readFileSync(resultsCsvPath, "utf8");
+  if (!raw) return;
+
+  const lines = raw.split(/\r?\n/);
+  let changed = false;
+  const out = [];
+
+  // Detect a runId+timestamp sequence accidentally glued into the previous row.
+  // Example: ...+00:0020260108-192516,2026-...
+  const gluedMarker = /(\d{8}-\d{6},20\d{2}-\d{2}-\d{2}T)/;
+
+  for (let i = 0; i < lines.length; i++) {
+    const line = lines[i];
+    if (!line) {
+      out.push(line);
+      continue;
+    }
+    const match = gluedMarker.exec(line);
+    if (match && match.index > 0) {
+      changed = true;
+      out.push(line.slice(0, match.index));
+      out.push(line.slice(match.index));
+    } else {
+      out.push(line);
+    }
+  }
+
+  if (!changed) return;
+
+  let normalized = out.join("\n");
+  if (!normalized.endsWith("\n")) normalized += "\n";
+  writeFileSync(resultsCsvPath, normalized, "utf8");
+}
+
+function appendRowsToRunningCsv(resultsCsvPath, headerV2, rows) {
+  if (!existsSync(resultsCsvPath)) {
+    writeFileSync(resultsCsvPath, headerV2.join(",") + "\n", "utf8");
+  }
+  ensureRunningCsvHasV2Header(resultsCsvPath, headerV2);
+  repairGluedCsvRows(resultsCsvPath);
+
+  if (!rows.length) return;
+
+  const existing = readFileSync(resultsCsvPath, "utf8");
+  const firstLine = existing.split(/\r?\n/)[0] ?? "";
+  if (firstLine.trim() !== headerV2.join(",")) {
+    throw new Error(`Unexpected CSV header in ${resultsCsvPath}; refusing to append.`);
+  }
+
+  // Ensure the file ends with a newline before appending.
+  if (existing.length > 0 && !existing.endsWith("\n")) {
+    appendFileSync(resultsCsvPath, "\n", "utf8");
+  }
+
+  const data = rows.map((r) => r.map(csvEscape).join(",")).join("\n") + "\n";
+  appendFileSync(resultsCsvPath, data, "utf8");
+}
+
 async function main() {
   const repoRoot = resolve(process.cwd());
   const inputFile = resolve(repoRoot, "examples", "domain-availability", "domains.txt");
   const outDir = resolve(repoRoot, "examples", "domain-availability", "out");
   mkdirSync(outDir, { recursive: true });
+
+  const runsDir = resolve(outDir, "runs");
+  mkdirSync(runsDir, { recursive: true });
 
   const apiKey = getEnv("FIRECRAWL_API_KEY") ?? getEnv("TEST_API_KEY");
   if (!apiKey) {
@@ -231,13 +412,28 @@ async function main() {
     return;
   }
 
-  console.log(`Checking ${domains.length} domains via Firecrawl...`);
+  const resultsJsonPath = resolve(outDir, "results.json");
+  const resultsCsvPath = resolve(outDir, "results.csv");
+
+  const priorRuns = loadRunningRunsJson(resultsJsonPath);
+  const checkedDomains = buildCheckedDomainSetFromRuns(priorRuns);
+
+  const domainsToCheck = domains.filter((d) => !checkedDomains.has(d.toLowerCase()));
+  const skippedCount = domains.length - domainsToCheck.length;
+
+  console.log(`Checking ${domainsToCheck.length} domains via Firecrawl...`);
+  if (skippedCount > 0) {
+    console.log(`Skipping ${skippedCount} already-checked domains (from out/results.json)`);
+  }
   console.log(`API: ${apiUrl}${scrapePath}`);
 
   const startedAt = new Date().toISOString();
+  const runId = safeRunIdFromIso(startedAt);
+  const runOutDir = resolve(runsDir, runId);
+  mkdirSync(runOutDir, { recursive: true });
 
   const results = await runPool(
-    domains,
+    domainsToCheck,
     async (domain, i) => {
       const query = encodeURIComponent(domain);
       const searchUrl = `https://instantdomainsearch.com/?q=${query}`;
@@ -275,16 +471,31 @@ async function main() {
         let notes = extracted?.notes ?? "";
         if (typeof notes !== "string") notes = JSON.stringify(notes);
 
-        if (availability === "unknown" && data.markdown) {
-          const fallback = inferAvailabilityFromMarkdown(data.markdown);
-          availability = fallback.availability;
-          price = price ?? fallback.price;
+        if (data.markdown) {
+          const fallback = inferAvailabilityFromMarkdown(data.markdown, domain);
+
+          if (availability === "unknown") {
+            availability = fallback.availability;
+          }
+
+          if (price == null) {
+            price = fallback.price;
+          } else if (fallback.price == null) {
+            // Avoid false positives where a $ amount is for a different domain on the page.
+            price = null;
+            notes = notes ? `${notes}; Dropped unverified price` : "Dropped unverified price";
+          } else if (String(price) !== String(fallback.price)) {
+            // Prefer domain-local price if it conflicts.
+            price = fallback.price;
+            notes = notes ? `${notes}; Replaced price with domain-local price` : "Replaced price with domain-local price";
+          }
+
           if (!notes) notes = fallback.notes;
         }
 
         if (perRequestDelayMs > 0) await sleep(perRequestDelayMs);
 
-        console.log(`[${i + 1}/${domains.length}] ${domain}: ${availability}${price ? ` (${price})` : ""}`);
+        console.log(`[${i + 1}/${domainsToCheck.length}] ${domain}: ${availability}${price ? ` (${price})` : ""}`);
 
         return {
           ...base,
@@ -299,7 +510,7 @@ async function main() {
         if (perRequestDelayMs > 0) await sleep(perRequestDelayMs);
 
         const message = err?.message || String(err);
-        console.log(`[${i + 1}/${domains.length}] ${domain}: ERROR (${message})`);
+        console.log(`[${i + 1}/${domainsToCheck.length}] ${domain}: ERROR (${message})`);
 
         return {
           ...base,
@@ -314,6 +525,7 @@ async function main() {
   const finishedAt = new Date().toISOString();
 
   const jsonOut = {
+    runId,
     startedAt,
     finishedAt,
     apiUrl,
@@ -321,13 +533,16 @@ async function main() {
     count: results.length,
     successCount: results.filter((r) => r.ok).length,
     failureCount: results.filter((r) => !r.ok).length,
+    skippedCount,
     results,
   };
 
-  const resultsJsonPath = resolve(outDir, "results.json");
-  writeFileSync(resultsJsonPath, JSON.stringify(jsonOut, null, 2), "utf8");
+  // Per-run outputs
+  const runResultsJsonPath = resolve(runOutDir, "results.json");
+  writeFileSync(runResultsJsonPath, JSON.stringify(jsonOut, null, 2), "utf8");
 
-  const csvHeader = [
+
+  const csvHeaderRun = [
     "domain",
     "availability",
     "price",
@@ -338,9 +553,9 @@ async function main() {
     "timestamp",
   ];
 
-  const csvLines = [csvHeader.join(",")];
+  const csvLinesRun = [csvHeaderRun.join(",")];
   for (const r of results) {
-    csvLines.push(
+    csvLinesRun.push(
       [
         r.domain,
         r.ok ? r.availability : "",
@@ -356,12 +571,48 @@ async function main() {
     );
   }
 
-  const resultsCsvPath = resolve(outDir, "results.csv");
-  writeFileSync(resultsCsvPath, csvLines.join("\n"), "utf8");
+  const runResultsCsvPath = resolve(runOutDir, "results.csv");
+  writeFileSync(runResultsCsvPath, csvLinesRun.join("\n"), "utf8");
+
+  // Append to running results
+  const updatedRuns = [...priorRuns, jsonOut];
+  writeFileSync(resultsJsonPath, JSON.stringify(updatedRuns, null, 2), "utf8");
+
+  const csvHeaderV2 = [
+    "runId",
+    "runStartedAt",
+    "runFinishedAt",
+    "domain",
+    "availability",
+    "price",
+    "notes",
+    "ok",
+    "error",
+    "searchUrl",
+    "timestamp",
+  ];
+
+  const csvRowsV2 = results.map((r) => [
+    runId,
+    startedAt,
+    finishedAt,
+    r.domain,
+    r.ok ? r.availability : "",
+    r.ok ? r.price ?? "" : "",
+    r.ok ? r.notes ?? "" : "",
+    r.ok,
+    r.ok ? "" : r.error ?? "",
+    r.searchUrl,
+    r.timestamp,
+  ]);
+
+  appendRowsToRunningCsv(resultsCsvPath, csvHeaderV2, csvRowsV2);
 
   console.log("\nDone.");
-  console.log(`- JSON: ${resultsJsonPath}`);
-  console.log(`- CSV:  ${resultsCsvPath}`);
+  console.log(`- Run JSON: ${runResultsJsonPath}`);
+  console.log(`- Run CSV:  ${runResultsCsvPath}`);
+  console.log(`- Running JSON: ${resultsJsonPath}`);
+  console.log(`- Running CSV:  ${resultsCsvPath}`);
 }
 
 main().catch((e) => {

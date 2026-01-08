@@ -23,6 +23,7 @@ from __future__ import annotations
 import csv
 import json
 import os
+import re
 import time
 import urllib.parse
 import urllib.error
@@ -110,7 +111,136 @@ def parse_domains_file(path: Path) -> list[str]:
         if not s or s.startswith("#"):
             continue
         domains.append(s)
-    return domains
+
+    # De-dupe while preserving order
+    seen: set[str] = set()
+    out: list[str] = []
+    for d in domains:
+        k = d.lower()
+        if k in seen:
+            continue
+        seen.add(k)
+        out.append(d)
+    return out
+
+
+def safe_run_id_from_iso(iso: str) -> str:
+    # Windows-safe folder name
+    # 2026-01-08T19:15:26.666Z -> 20260108-191526
+    iso = re.sub(r"\.\d+Z$", "Z", iso)
+    iso = re.sub(r"\+\d\d:\d\d$", "Z", iso)
+    iso = iso.replace("-", "").replace(":", "").replace("T", "-")
+    iso = re.sub(r"Z$", "", iso)
+    return iso[:15]
+
+
+def load_running_runs_json(path: Path) -> list[dict[str, Any]]:
+    if not path.exists():
+        return []
+    try:
+        parsed = json.loads(path.read_text(encoding="utf-8"))
+        if isinstance(parsed, list):
+            return [x for x in parsed if isinstance(x, dict)]
+        if isinstance(parsed, dict) and isinstance(parsed.get("results"), list):
+            # Old format: single run object
+            return [parsed]
+        return []
+    except Exception:
+        return []
+
+
+def build_checked_domain_set_from_runs(runs: list[dict[str, Any]]) -> set[str]:
+    checked: set[str] = set()
+    for run in runs:
+        results = run.get("results")
+        if not isinstance(results, list):
+            continue
+        for r in results:
+            if not isinstance(r, dict):
+                continue
+            domain = r.get("domain")
+            if isinstance(domain, str) and domain.strip():
+                checked.add(domain.strip().lower())
+    return checked
+
+
+def ensure_running_csv_has_v2_header(results_csv_path: Path, header_v2: list[str]) -> None:
+    if not results_csv_path.exists():
+        return
+
+    try:
+        first_line = results_csv_path.read_text(encoding="utf-8").splitlines()[0]
+    except Exception:
+        return
+
+    if first_line.strip() == ",".join(header_v2):
+        return
+
+    legacy_header = ",".join(
+        ["domain", "availability", "price", "notes", "ok", "error", "searchUrl", "timestamp"]
+    )
+    if first_line.strip() != legacy_header:
+        return
+
+    lines = [l for l in results_csv_path.read_text(encoding="utf-8").splitlines() if l]
+    out_lines = [",".join(header_v2)]
+    for line in lines[1:]:
+        # Prefix empty run metadata for historical rows
+        out_lines.append(",".join(["", "", "", line]))
+    results_csv_path.write_text("\n".join(out_lines) + "\n", encoding="utf-8")
+
+
+def append_rows_to_running_csv(results_csv_path: Path, header_v2: list[str], rows: list[list[Any]]) -> None:
+    if not results_csv_path.exists():
+        results_csv_path.write_text(",".join(header_v2) + "\n", encoding="utf-8")
+
+    ensure_running_csv_has_v2_header(results_csv_path, header_v2)
+
+    # Repair any previously glued rows caused by missing trailing newline.
+    repair_running_csv_glued_rows(results_csv_path)
+
+    first_line = results_csv_path.read_text(encoding="utf-8").splitlines()[0]
+    if first_line.strip() != ",".join(header_v2):
+        raise RuntimeError(f"Unexpected CSV header in {results_csv_path}; refusing to append.")
+
+    if not rows:
+        return
+
+    with results_csv_path.open("a", encoding="utf-8", newline="") as f:
+        w = csv.writer(f)
+        for row in rows:
+            w.writerow(row)
+
+
+def repair_running_csv_glued_rows(results_csv_path: Path) -> None:
+    if not results_csv_path.exists():
+        return
+
+    raw = results_csv_path.read_text(encoding="utf-8")
+    if not raw:
+        return
+
+    lines = raw.splitlines()
+    out: list[str] = []
+    changed = False
+
+    glued_marker = re.compile(r"(\d{8}-\d{6},20\d{2}-\d{2}-\d{2}T)")
+    for line in lines:
+        m = glued_marker.search(line)
+        if m and m.start() > 0:
+            changed = True
+            out.append(line[: m.start()])
+            out.append(line[m.start() :])
+        else:
+            out.append(line)
+
+    if not changed:
+        return
+
+    text = "\n".join(out)
+    if not text.endswith("\n"):
+        text += "\n"
+    results_csv_path.write_text(text, encoding="utf-8")
 
 
 def normalize_extract(extract: Any) -> dict[str, Any] | None:
@@ -127,27 +257,50 @@ def normalize_extract(extract: Any) -> dict[str, Any] | None:
     return None
 
 
-def infer_from_markdown(markdown: str | None) -> dict[str, Any]:
+def infer_from_markdown(markdown: str | None, domain: str) -> dict[str, Any]:
     if not markdown:
         return {"availability": "unknown", "price": None, "notes": "No markdown"}
 
-    text = markdown.lower()
+    lines = markdown.splitlines()
+    domain_needle = f"[{domain}]("
+    domain_line_index = next((i for i, l in enumerate(lines) if domain_needle in l or domain in l), -1)
+    if domain_line_index < 0:
+        return {"availability": "unknown", "price": None, "notes": "Domain not found in markdown"}
+
+    window_start = max(0, domain_line_index - 10)
+    window_end = min(len(lines), domain_line_index + 40)
+    window_lines = lines[window_start:window_end]
+    window_text = "\n".join(window_lines).lower()
+
     availability = "unknown"
-
-    if "available" in text or "for sale" in text or "register" in text:
-        availability = "available"
-    if "taken" in text or "registered" in text or "unavailable" in text:
+    if "make offer" in window_text or "whois" in window_text:
         availability = "taken"
+    if "continue" in window_text:
+        availability = "available"
 
-    price = None
-    # simple $123 or $1,234.56 scan
     import re
 
-    m = re.search(r"\$[\d,]+(?:\.\d{2})?", markdown)
-    if m:
-        price = m.group(0)
+    price: str | None = None
+    for i in range(domain_line_index, min(len(lines), domain_line_index + 12)):
+        line = lines[i].strip()
 
-    return {"availability": availability, "price": price, "notes": "Parsed from markdown"}
+        # If we hit another domain-like link before a price, stop.
+        if i != domain_line_index and re.match(r"^\[[^\]]+\]\([^)]*\)", line) and "." in line and domain not in line:
+            break
+
+        m = re.search(r"\$[\d,]+(?:\.\d{2})?", line)
+        if m:
+            price = m.group(0)
+            break
+
+    notes_parts: list[str] = []
+    if availability == "available":
+        notes_parts.append("Found 'Continue' near domain")
+    if availability == "taken":
+        notes_parts.append("Found 'Make offer/WHOIS' near domain")
+    notes_parts.append("Found price near domain" if price else "No domain-specific price found")
+
+    return {"availability": availability, "price": price, "notes": "; ".join(notes_parts)}
 
 
 @dataclass(frozen=True)
@@ -240,6 +393,9 @@ def main() -> int:
     out_dir = folder / "out"
     out_dir.mkdir(parents=True, exist_ok=True)
 
+    runs_dir = out_dir / "runs"
+    runs_dir.mkdir(parents=True, exist_ok=True)
+
     api_key = env("FIRECRAWL_API_KEY") or env("TEST_API_KEY")
     if not api_key:
         print("Missing FIRECRAWL_API_KEY (or TEST_API_KEY) environment variable")
@@ -269,10 +425,23 @@ def main() -> int:
         print(f"No domains found in {input_file}")
         return 0
 
-    print(f"Checking {len(domains)} domains via Firecrawl...")
+    running_json_path = out_dir / "results.json"
+    running_csv_path = out_dir / "results.csv"
+
+    prior_runs = load_running_runs_json(running_json_path)
+    checked_domains = build_checked_domain_set_from_runs(prior_runs)
+    domains_to_check = [d for d in domains if d.lower() not in checked_domains]
+    skipped_count = len(domains) - len(domains_to_check)
+
+    print(f"Checking {len(domains_to_check)} domains via Firecrawl...")
+    if skipped_count > 0:
+        print(f"Skipping {skipped_count} already-checked domains (from out/results.json)")
     print(f"API: {settings.api_url}{settings.scrape_path}")
 
     started_at = utc_now_iso()
+    run_id = safe_run_id_from_iso(started_at)
+    run_out_dir = runs_dir / run_id
+    run_out_dir.mkdir(parents=True, exist_ok=True)
 
     def worker(domain: str, index: int) -> dict[str, Any]:
         search_url = f"https://instantdomainsearch.com/?q={urllib.parse.quote(domain)}"
@@ -307,18 +476,30 @@ def main() -> int:
             if not isinstance(notes, str):
                 notes = json.dumps(notes)
 
-            if availability == "unknown" and data.get("markdown"):
-                fallback = infer_from_markdown(data.get("markdown"))
-                availability = fallback["availability"]
+            if data.get("markdown"):
+                fallback = infer_from_markdown(data.get("markdown"), domain)
+
+                if availability == "unknown":
+                    availability = fallback["availability"]
+
                 if price is None:
                     price = fallback["price"]
+                elif fallback["price"] is None:
+                    price = None
+                    notes = f"{notes}; Dropped unverified price" if notes else "Dropped unverified price"
+                elif str(price) != str(fallback["price"]):
+                    price = fallback["price"]
+                    notes = (
+                        f"{notes}; Replaced price with domain-local price" if notes else "Replaced price with domain-local price"
+                    )
+
                 if not notes:
                     notes = fallback["notes"]
 
             if settings.delay_ms:
                 time.sleep(settings.delay_ms / 1000.0)
 
-            print(f"[{index}/{len(domains)}] {domain}: {availability}{f' ({price})' if price else ''}")
+            print(f"[{index}/{len(domains_to_check)}] {domain}: {availability}{f' ({price})' if price else ''}")
 
             return {
                 **base,
@@ -333,15 +514,15 @@ def main() -> int:
             if settings.delay_ms:
                 time.sleep(settings.delay_ms / 1000.0)
             msg = str(e)
-            print(f"[{index}/{len(domains)}] {domain}: ERROR ({msg})")
+            print(f"[{index}/{len(domains_to_check)}] {domain}: ERROR ({msg})")
             return {**base, "ok": False, "error": msg}
 
-    results: list[dict[str, Any]] = [None] * len(domains)  # type: ignore[assignment]
+    results: list[dict[str, Any]] = [None] * len(domains_to_check)  # type: ignore[assignment]
 
     with ThreadPoolExecutor(max_workers=settings.concurrency) as pool:
         futures = {
             pool.submit(worker, domain, i + 1): i
-            for i, domain in enumerate(domains)
+            for i, domain in enumerate(domains_to_check)
         }
         for fut in as_completed(futures):
             i = futures[fut]
@@ -350,6 +531,7 @@ def main() -> int:
     finished_at = utc_now_iso()
 
     out_json = {
+        "runId": run_id,
         "startedAt": started_at,
         "finishedAt": finished_at,
         "apiUrl": settings.api_url,
@@ -357,14 +539,15 @@ def main() -> int:
         "count": len(results),
         "successCount": sum(1 for r in results if r.get("ok")),
         "failureCount": sum(1 for r in results if not r.get("ok")),
+        "skippedCount": skipped_count,
         "results": results,
     }
 
-    json_path = out_dir / "results.json"
-    json_path.write_text(json.dumps(out_json, indent=2), encoding="utf-8")
+    run_json_path = run_out_dir / "results.json"
+    run_json_path.write_text(json.dumps(out_json, indent=2), encoding="utf-8")
 
-    csv_path = out_dir / "results.csv"
-    with csv_path.open("w", newline="", encoding="utf-8") as f:
+    run_csv_path = run_out_dir / "results.csv"
+    with run_csv_path.open("w", newline="", encoding="utf-8") as f:
         w = csv.writer(f)
         w.writerow(["domain", "availability", "price", "notes", "ok", "error", "searchUrl", "timestamp"])
         for r in results:
@@ -382,9 +565,50 @@ def main() -> int:
                 ]
             )
 
+    # Append to running outputs
+    updated_runs = prior_runs + [out_json]
+    running_json_path.write_text(json.dumps(updated_runs, indent=2), encoding="utf-8")
+
+    csv_header_v2 = [
+        "runId",
+        "runStartedAt",
+        "runFinishedAt",
+        "domain",
+        "availability",
+        "price",
+        "notes",
+        "ok",
+        "error",
+        "searchUrl",
+        "timestamp",
+    ]
+
+    csv_rows_v2: list[list[Any]] = []
+    for r in results:
+        ok = bool(r.get("ok"))
+        csv_rows_v2.append(
+            [
+                run_id,
+                started_at,
+                finished_at,
+                r.get("domain", ""),
+                r.get("availability", "") if ok else "",
+                r.get("price", "") if ok else "",
+                r.get("notes", "") if ok else "",
+                ok,
+                "" if ok else r.get("error", ""),
+                r.get("searchUrl", ""),
+                r.get("timestamp", ""),
+            ]
+        )
+
+    append_rows_to_running_csv(running_csv_path, csv_header_v2, csv_rows_v2)
+
     print("\nDone.")
-    print(f"- JSON: {json_path}")
-    print(f"- CSV:  {csv_path}")
+    print(f"- Run JSON: {run_json_path}")
+    print(f"- Run CSV:  {run_csv_path}")
+    print(f"- Running JSON: {running_json_path}")
+    print(f"- Running CSV:  {running_csv_path}")
     return 0
 
 

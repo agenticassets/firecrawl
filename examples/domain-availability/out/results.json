@@ -1,47 +1,74 @@
-{
-  "startedAt": "2026-01-08T18:55:31.282Z",
-  "finishedAt": "2026-01-08T18:55:41.792Z",
-  "apiUrl": "http://localhost:3002",
-  "scrapePath": "/v1/scrape",
-  "count": 3,
-  "successCount": 3,
-  "failureCount": 0,
-  "results": [
-    {
-      "domain": "orbis.ai",
-      "searchUrl": "https://instantdomainsearch.com/?q=orbis.ai",
-      "index": 1,
-      "timestamp": "2026-01-08T18:55:31.284Z",
-      "ok": true,
-      "availability": "taken",
-      "price": "$64,995",
-      "notes": "Parsed from markdown",
-      "hasExtract": false,
-      "hasMarkdown": true
-    },
-    {
-      "domain": "orbix.ai",
-      "searchUrl": "https://instantdomainsearch.com/?q=orbix.ai",
-      "index": 2,
-      "timestamp": "2026-01-08T18:55:31.368Z",
-      "ok": true,
-      "availability": "taken",
-      "price": "$4,911",
-      "notes": "Parsed from markdown",
-      "hasExtract": false,
-      "hasMarkdown": true
-    },
-    {
-      "domain": "orbisio.ai",
-      "searchUrl": "https://instantdomainsearch.com/?q=orbisio.ai",
-      "index": 3,
-      "timestamp": "2026-01-08T18:55:31.369Z",
-      "ok": true,
-      "availability": "taken",
-      "price": "$3,299",
-      "notes": "Parsed from markdown",
-      "hasExtract": false,
-      "hasMarkdown": true
-    }
-  ]
-}
+[
+  {
+    "startedAt": "2026-01-08T19:15:26.666005+00:00",
+    "finishedAt": "2026-01-08T19:15:39.254055+00:00",
+    "apiUrl": "http://localhost:3002",
+    "scrapePath": "/v1/scrape",
+    "count": 2,
+    "successCount": 2,
+    "failureCount": 0,
+    "results": [
+      {
+        "domain": "orbis.ai",
+        "searchUrl": "https://instantdomainsearch.com/?q=orbis.ai",
+        "index": 1,
+        "timestamp": "2026-01-08T19:15:26.669094+00:00",
+        "ok": true,
+        "availability": "taken",
+        "price": null,
+        "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+        "hasExtract": false,
+        "hasMarkdown": true
+      },
+      {
+        "domain": "equor.ai",
+        "searchUrl": "https://instantdomainsearch.com/?q=equor.ai",
+        "index": 2,
+        "timestamp": "2026-01-08T19:15:26.672518+00:00",
+        "ok": true,
+        "availability": "available",
+        "price": null,
+        "notes": "Found 'Continue' near domain; No domain-specific price found",
+        "hasExtract": false,
+        "hasMarkdown": true
+      }
+    ]
+  },
+  {
+    "runId": "20260108-192516",
+    "startedAt": "2026-01-08T19:25:16.108Z",
+    "finishedAt": "2026-01-08T19:25:27.502Z",
+    "apiUrl": "http://localhost:3002",
+    "scrapePath": "/v1/scrape",
+    "count": 1,
+    "successCount": 1,
+    "failureCount": 0,
+    "skippedCount": 2,
+    "results": [
+      {
+        "domain": "levident.ai",
+        "searchUrl": "https://instantdomainsearch.com/?q=levident.ai",
+        "index": 1,
+        "timestamp": "2026-01-08T19:25:16.113Z",
+        "ok": true,
+        "availability": "available",
+        "price": null,
+        "notes": "Found 'Continue' near domain; No domain-specific price found",
+        "hasExtract": false,
+        "hasMarkdown": true
+      }
+    ]
+  },
+  {
+    "runId": "20260108-192531",
+    "startedAt": "2026-01-08T19:25:31.293004+00:00",
+    "finishedAt": "2026-01-08T19:25:31.293893+00:00",
+    "apiUrl": "http://localhost:3002",
+    "scrapePath": "/v1/scrape",
+    "count": 0,
+    "successCount": 0,
+    "failureCount": 0,
+    "skippedCount": 3,
+    "results": []
+  }
+]
