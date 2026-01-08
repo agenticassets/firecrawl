@@ -1,0 +1,8 @@
+# One domain per line. Lines starting with # are ignored.
+# Examples:
+# orbis.ai
+# example.com
+
+orbis.ai
+orbix.ai
+orbisio.ai
