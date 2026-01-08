@@ -1,0 +1,4 @@
+# One URL per line. Lines starting with # are ignored.
+
+https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5615733
+https://onlinelibrary.wiley.com/doi/10.1111/1540-6229.70030

@@ -1,0 +1,61 @@
+{
+  "runId": "20260108-215826",
+  "startedAt": "2026-01-08T21:58:26.829222+00:00",
+  "finishedAt": "2026-01-08T22:01:22.364239+00:00",
+  "apiUrl": "http://localhost:3002",
+  "scrapePath": "/v1/scrape",
+  "count": 2,
+  "successCount": 2,
+  "pdfDownloadedCount": 0,
+  "failureCount": 0,
+  "results": [
+    {
+      "index": 1,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5615733",
+      "timestamp": "2026-01-08T21:58:26.832680+00:00",
+      "ok": true,
+      "runId": "20260108-215826",
+      "title": null,
+      "authors": [],
+      "published": null,
+      "extractNotes": "",
+      "pdfCandidates": [
+        "https://papers.ssrn.com/sol3/Delivery.cfm/5615733.pdf?abstractid=5615733&mirid=1",
+        "https://papers.ssrn.com/sol3/Delivery.cfm/5615733.pdf?abstractid=5615733&mirid=1&type=2"
+      ],
+      "pdfUrl": null,
+      "pdfDownloaded": false,
+      "pdfDownload": null,
+      "pdfError": "Failed to base64-decode Firecrawl PDF",
+      "paths": {
+        "dir": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215826\\001-papers-ssrn-com-sol3-papers-cfm-abstract-id-5615733",
+        "pageMarkdown": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215826\\001-papers-ssrn-com-sol3-papers-cfm-abstract-id-5615733\\page.md",
+        "pdf": null
+      }
+    },
+    {
+      "index": 2,
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/1540-6229.70030",
+      "timestamp": "2026-01-08T21:58:26.833772+00:00",
+      "ok": true,
+      "runId": "20260108-215826",
+      "title": null,
+      "authors": [],
+      "published": null,
+      "extractNotes": "",
+      "pdfCandidates": [
+        "https://onlinelibrary.wiley.com/doi/epdf/10.1111/1540-6229.70030",
+        "https://onlinelibrary.wiley.com/doi/pdf/10.1111/1540-6229.70030"
+      ],
+      "pdfUrl": null,
+      "pdfDownloaded": false,
+      "pdfDownload": null,
+      "pdfError": "Firecrawl PDF fetch did not produce valid PDF bytes",
+      "paths": {
+        "dir": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215826\\002-onlinelibrary-wiley-com-doi-10-1111-1540-6229-70030",
+        "pageMarkdown": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215826\\002-onlinelibrary-wiley-com-doi-10-1111-1540-6229-70030\\page.md",
+        "pdf": null
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "ok": true,
+  "runId": "20260108-215826",
+  "url": "https://onlinelibrary.wiley.com/doi/10.1111/1540-6229.70030",
+  "title": null,
+  "authors": [],
+  "published": null,
+  "extractNotes": "",
+  "pdfCandidates": [
+    "https://onlinelibrary.wiley.com/doi/epdf/10.1111/1540-6229.70030",
+    "https://onlinelibrary.wiley.com/doi/pdf/10.1111/1540-6229.70030"
+  ],
+  "pdfUrl": null,
+  "pdfDownloaded": false,
+  "pdfDownload": null,
+  "pdfError": "Firecrawl PDF fetch did not produce valid PDF bytes",
+  "paths": {
+    "dir": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215826\\002-onlinelibrary-wiley-com-doi-10-1111-1540-6229-70030",
+    "pageMarkdown": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215826\\002-onlinelibrary-wiley-com-doi-10-1111-1540-6229-70030\\page.md",
+    "pdf": null
+  }
+}

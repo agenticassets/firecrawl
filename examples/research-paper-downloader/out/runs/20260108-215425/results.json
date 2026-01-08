@@ -1,0 +1,68 @@
+{
+  "runId": "20260108-215425",
+  "startedAt": "2026-01-08T21:54:25.187847+00:00",
+  "finishedAt": "2026-01-08T21:55:05.495423+00:00",
+  "apiUrl": "http://localhost:3002",
+  "scrapePath": "/v1/scrape",
+  "count": 2,
+  "successCount": 2,
+  "pdfDownloadedCount": 1,
+  "failureCount": 0,
+  "results": [
+    {
+      "index": 1,
+      "url": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5615733",
+      "timestamp": "2026-01-08T21:54:25.190299+00:00",
+      "ok": true,
+      "runId": "20260108-215425",
+      "title": null,
+      "authors": [],
+      "published": null,
+      "extractNotes": "",
+      "pdfCandidates": [
+        "https://papers.ssrn.com/sol3/Delivery.cfm/5615733.pdf?abstractid=5615733&mirid=1",
+        "https://papers.ssrn.com/sol3/Delivery.cfm/5615733.pdf?abstractid=5615733&mirid=1&type=2",
+        "https://papers.ssrn.com/sol3/Delivery.cfm/5615733.pdf?abstractid=5615733&amp;mirid=1",
+        "https://papers.ssrn.com/sol3/Delivery.cfm/5615733.pdf?abstractid=5615733&amp;mirid=1&amp;type=2"
+      ],
+      "pdfUrl": "https://papers.ssrn.com/sol3/Delivery.cfm/5615733.pdf?abstractid=5615733&mirid=1",
+      "pdfDownloaded": true,
+      "pdfDownload": {
+        "ok": true,
+        "finalUrl": "https://papers.ssrn.com/sol3/papers.cfm?abstract_id=5615733",
+        "contentType": "text/html",
+        "bytes": 73345
+      },
+      "pdfError": null,
+      "paths": {
+        "dir": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215425\\001-papers-ssrn-com-sol3-papers-cfm-abstract-id-5615733",
+        "pageMarkdown": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215425\\001-papers-ssrn-com-sol3-papers-cfm-abstract-id-5615733\\page.md",
+        "pdf": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215425\\001-papers-ssrn-com-sol3-papers-cfm-abstract-id-5615733\\paper.pdf"
+      }
+    },
+    {
+      "index": 2,
+      "url": "https://onlinelibrary.wiley.com/doi/10.1111/1540-6229.70030",
+      "timestamp": "2026-01-08T21:54:25.190930+00:00",
+      "ok": true,
+      "runId": "20260108-215425",
+      "title": null,
+      "authors": [],
+      "published": null,
+      "extractNotes": "",
+      "pdfCandidates": [
+        "https://onlinelibrary.wiley.com/doi/epdf/10.1111/1540-6229.70030",
+        "https://onlinelibrary.wiley.com/doi/pdf/10.1111/1540-6229.70030"
+      ],
+      "pdfUrl": "https://onlinelibrary.wiley.com/doi/pdf/10.1111/1540-6229.70030",
+      "pdfDownloaded": false,
+      "pdfDownload": null,
+      "pdfError": "HTTP 403",
+      "paths": {
+        "dir": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215425\\002-onlinelibrary-wiley-com-doi-10-1111-1540-6229-70030",
+        "pageMarkdown": "C:\\Users\\cas3526\\dev\\Agentic-Assets\\firecrawl\\examples\\research-paper-downloader\\out\\runs\\20260108-215425\\002-onlinelibrary-wiley-com-doi-10-1111-1540-6229-70030\\page.md",
+        "pdf": null
+      }
+    }
+  ]
+}
