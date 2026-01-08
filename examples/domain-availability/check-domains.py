@@ -212,6 +212,40 @@ def append_rows_to_running_csv(results_csv_path: Path, header_v2: list[str], row
             w.writerow(row)
 
 
+def write_available_domains_txt(out_dir: Path, runs: list[dict[str, Any]]) -> Path:
+    # Derive a simple list from the running JSON ledger.
+    # If a domain ever appears multiple times, the last occurrence wins.
+    latest_by_domain: dict[str, dict[str, Any]] = {}
+    for run in runs:
+        results = run.get("results")
+        if not isinstance(results, list):
+            continue
+        for r in results:
+            if not isinstance(r, dict):
+                continue
+            domain = r.get("domain")
+            if not isinstance(domain, str) or not domain.strip():
+                continue
+            key = domain.strip().lower()
+            latest_by_domain[key] = {
+                "domain": domain.strip(),
+                "ok": bool(r.get("ok")),
+                "availability": r.get("availability"),
+            }
+
+    available = sorted(
+        [
+            key
+            for key, v in latest_by_domain.items()
+            if v.get("ok") and v.get("availability") == "available"
+        ]
+    )
+
+    path = out_dir / "available-domains.txt"
+    path.write_text("\n".join(available) + ("\n" if available else ""), encoding="utf-8")
+    return path
+
+
 def repair_running_csv_glued_rows(results_csv_path: Path) -> None:
     if not results_csv_path.exists():
         return
@@ -604,11 +638,14 @@ def main() -> int:
 
     append_rows_to_running_csv(running_csv_path, csv_header_v2, csv_rows_v2)
 
+    available_txt_path = write_available_domains_txt(out_dir, updated_runs)
+
     print("\nDone.")
     print(f"- Run JSON: {run_json_path}")
     print(f"- Run CSV:  {run_csv_path}")
     print(f"- Running JSON: {running_json_path}")
     print(f"- Running CSV:  {running_csv_path}")
+    print(f"- Available: {available_txt_path}")
     return 0
 
 

@@ -376,6 +376,33 @@ function appendRowsToRunningCsv(resultsCsvPath, headerV2, rows) {
   appendFileSync(resultsCsvPath, data, "utf8");
 }
 
+function writeAvailableDomainsTxt(outDir, runs) {
+  // Derive a simple list from the running JSON ledger.
+  // If a domain ever appears multiple times, the last occurrence wins.
+  const latestByDomain = new Map();
+  for (const run of runs) {
+    const results = run?.results;
+    if (!Array.isArray(results)) continue;
+    for (const r of results) {
+      const domain = typeof r?.domain === "string" ? r.domain.trim() : "";
+      if (!domain) continue;
+      const ok = !!r?.ok;
+      const availability = typeof r?.availability === "string" ? r.availability : "";
+      latestByDomain.set(domain.toLowerCase(), { domain, ok, availability });
+    }
+  }
+
+  const available = [];
+  for (const { domain, ok, availability } of latestByDomain.values()) {
+    if (ok && availability === "available") available.push(domain.toLowerCase());
+  }
+  available.sort((a, b) => a.localeCompare(b));
+
+  const txtPath = resolve(outDir, "available-domains.txt");
+  writeFileSync(txtPath, available.join("\n") + (available.length ? "\n" : ""), "utf8");
+  return txtPath;
+}
+
 async function main() {
   const repoRoot = resolve(process.cwd());
   const inputFile = resolve(repoRoot, "examples", "domain-availability", "domains.txt");
@@ -608,11 +635,14 @@ async function main() {
 
   appendRowsToRunningCsv(resultsCsvPath, csvHeaderV2, csvRowsV2);
 
+  const availableTxtPath = writeAvailableDomainsTxt(outDir, updatedRuns);
+
   console.log("\nDone.");
   console.log(`- Run JSON: ${runResultsJsonPath}`);
   console.log(`- Run CSV:  ${runResultsCsvPath}`);
   console.log(`- Running JSON: ${resultsJsonPath}`);
   console.log(`- Running CSV:  ${resultsCsvPath}`);
+  console.log(`- Available: ${availableTxtPath}`);
 }
 
 main().catch((e) => {

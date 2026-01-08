@@ -20,6 +20,9 @@ This folder gives you a simple, repeatable workflow to check domain availability
 
 Re-running will skip domains already present in the running JSON ledger.
 
+- Derived output:
+  - `out/available-domains.txt` (unique, sorted list of domains whose latest known status is `available`)
+
 ## Requirements
 - Node.js 18+ (uses built-in `fetch`)
 - Python 3.10+

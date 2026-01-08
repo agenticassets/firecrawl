@@ -1,0 +1,12 @@
+{
+  "runId": "20260108-192910",
+  "startedAt": "2026-01-08T19:29:10.142509+00:00",
+  "finishedAt": "2026-01-08T19:29:10.145539+00:00",
+  "apiUrl": "http://localhost:3002",
+  "scrapePath": "/v1/scrape",
+  "count": 0,
+  "successCount": 0,
+  "failureCount": 0,
+  "skippedCount": 22,
+  "results": []
+}
