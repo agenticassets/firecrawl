@@ -1,0 +1,47 @@
+{
+  "startedAt": "2026-01-08T18:55:31.282Z",
+  "finishedAt": "2026-01-08T18:55:41.792Z",
+  "apiUrl": "http://localhost:3002",
+  "scrapePath": "/v1/scrape",
+  "count": 3,
+  "successCount": 3,
+  "failureCount": 0,
+  "results": [
+    {
+      "domain": "orbis.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=orbis.ai",
+      "index": 1,
+      "timestamp": "2026-01-08T18:55:31.284Z",
+      "ok": true,
+      "availability": "taken",
+      "price": "$64,995",
+      "notes": "Parsed from markdown",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "orbix.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=orbix.ai",
+      "index": 2,
+      "timestamp": "2026-01-08T18:55:31.368Z",
+      "ok": true,
+      "availability": "taken",
+      "price": "$4,911",
+      "notes": "Parsed from markdown",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "orbisio.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=orbisio.ai",
+      "index": 3,
+      "timestamp": "2026-01-08T18:55:31.369Z",
+      "ok": true,
+      "availability": "taken",
+      "price": "$3,299",
+      "notes": "Parsed from markdown",
+      "hasExtract": false,
+      "hasMarkdown": true
+    }
+  ]
+}
