@@ -1,0 +1,121 @@
+{
+  "runId": "20260108-195909",
+  "startedAt": "2026-01-08T19:59:09.756Z",
+  "finishedAt": "2026-01-08T19:59:42.780Z",
+  "apiUrl": "http://localhost:3002",
+  "scrapePath": "/v1/scrape",
+  "count": 9,
+  "successCount": 9,
+  "failureCount": 0,
+  "skippedCount": 188,
+  "results": [
+    {
+      "domain": "atticus.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=atticus.ai",
+      "index": 1,
+      "timestamp": "2026-01-08T19:59:09.759Z",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "aurelius.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=aurelius.ai",
+      "index": 2,
+      "timestamp": "2026-01-08T19:59:09.828Z",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "xerxes.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=xerxes.ai",
+      "index": 3,
+      "timestamp": "2026-01-08T19:59:09.829Z",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "augustus.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=augustus.ai",
+      "index": 4,
+      "timestamp": "2026-01-08T19:59:20.956Z",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "optisiq.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=optisiq.ai",
+      "index": 5,
+      "timestamp": "2026-01-08T19:59:21.048Z",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "Found 'Continue' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "optisai.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=optisai.ai",
+      "index": 6,
+      "timestamp": "2026-01-08T19:59:22.019Z",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "Found 'Continue' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "sibyl.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=sibyl.ai",
+      "index": 7,
+      "timestamp": "2026-01-08T19:59:30.235Z",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "oracle.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=oracle.ai",
+      "index": 8,
+      "timestamp": "2026-01-08T19:59:30.405Z",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "numen.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=numen.ai",
+      "index": 9,
+      "timestamp": "2026-01-08T19:59:31.450Z",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    }
+  ]
+}
