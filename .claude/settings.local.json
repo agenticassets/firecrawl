@@ -48,7 +48,23 @@
       "Edit(**)",
       "Skill(*)",
       "Bash(Get-Content \"C:\\\\Users\\\\cas3526\\\\AppData\\\\Local\\\\Temp\\\\claude\\\\C--Users-cas3526-dev-Agentic-Assets-firecrawl\\\\tasks\\\\b0ab1ec.output\" -Tail 30)",
-      "Bash(timeout 10 bash:*)"
+      "Bash(timeout 10 bash:*)",
+      "Bash(dir:*)",
+      "Bash(docker:*)"
+    ],
+    "deny": [
+      "Bash(rm -rf /:*)",
+      "Bash(rm -rf /*:*)",
+      "Bash(Remove-Item -Force -Recurse C:\\:*)",
+      "Bash(Remove-Item -Force -Recurse C:\\Windows:*)",
+      "Bash(Remove-Item -Force -Recurse C:\\Program Files:*)",
+      "Bash(Remove-Item -Force -Recurse /System:*)",
+      "Bash(Remove-Item -Force -Recurse /usr:*)",
+      "Bash(Remove-Item -Force -Recurse /bin:*)",
+      "Bash(Remove-Item -Force -Recurse /sbin:*)",
+      "Bash(Remove-Item -Force -Recurse /etc:*)",
+      "Bash(mkfs.ext4 /dev/sda:*)",
+      "Bash(dd if=/dev/zero of=/dev/sda:*)"
     ],
     "ask": [
       "Bash(rm -rf:*)",
@@ -68,21 +84,6 @@
       "Bash(brew:*)",
       "Bash(dnf:*)",
       "Bash(yum:*)"
-    ],
-    "deny": [
-      "Bash(rm -rf /:*)",
-      "Bash(rm -rf /*:*)",
-      "Bash(Remove-Item -Force -Recurse C:\\:*)",
-      "Bash(Remove-Item -Force -Recurse C:\\Windows:*)",
-      "Bash(Remove-Item -Force -Recurse C:\\Program Files:*)",
-      "Bash(Remove-Item -Force -Recurse /System:*)",
-      "Bash(Remove-Item -Force -Recurse /usr:*)",
-      "Bash(Remove-Item -Force -Recurse /bin:*)",
-      "Bash(Remove-Item -Force -Recurse /sbin:*)",
-      "Bash(Remove-Item -Force -Recurse /etc:*)",
-      "Bash(:(){ :|:& };::*)",
-      "Bash(mkfs.ext4 /dev/sda:*)",
-      "Bash(dd if=/dev/zero of=/dev/sda:*)"
     ],
     "defaultMode": "acceptEdits"
   }

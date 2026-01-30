@@ -1,73 +1,85 @@
-# Domain availability checker (via Firecrawl)
+# Domain Availability Checker
 
-This folder gives you a simple, repeatable workflow to check domain availability in bulk by scraping a domain search UI (InstantDomainSearch) through the Firecrawl API.
+Fast, reliable bulk domain availability checker using Firecrawl API to scrape InstantDomainSearch.
 
-## What you edit
-- `domains.txt`: one domain per line.
+## Quick Start
 
-## What you run
-- `check-domains.mjs`: Node version (reads `domains.txt`, scrapes `https://instantdomainsearch.com/?q=<domain>` through Firecrawl, extracts a structured status, and writes results).
-- `check-domains.py`: Python version (same behavior as the Node script).
+1. **Configure**:
+   ```powershell
+   cp .env.optimized.example .env
+   # Edit .env and set FIRECRAWL_API_KEY
+   ```
 
-## Output
-- Per-run outputs:
-  - `out/runs/<runId>/results.json` (full structured results)
-  - `out/runs/<runId>/results.csv` (easy to sort/filter)
+2. **Add domains** to `domains.txt` (one per line)
 
-- Running (append-only) outputs:
-  - `out/results.json` (JSON array of run objects)
-  - `out/results.csv` (CSV ledger of all rows across runs)
+3. **Run**:
+   ```powershell
+   python check-domains-optimized.py
+   ```
 
-Re-running will skip domains already present in the running JSON ledger.
+4. **Check results**:
+   - `out/runs/<timestamp>/results.csv` - Latest run results
+   - `out/available-domains.txt` - All available domains found
 
-- Derived output:
-  - `out/available-domains.txt` (unique, sorted list of domains whose latest known status is `available`)
+## Configuration
+
+Edit `.env` or set environment variables:
+
+| Variable | Default | Description |
+|----------|---------|-------------|
+| `FIRECRAWL_API_KEY` | Required | Your Firecrawl API key |
+| `FIRECRAWL_API_URL` | `http://localhost:3002` | API endpoint |
+| `DOMAIN_CHECK_CONCURRENCY` | `8` | Parallel workers (8 recommended) |
+| `DOMAIN_CHECK_DELAY_MS` | `150` | Delay between requests (150ms recommended) |
+
+### Performance Tuning
+
+- **Conservative** (slow, very reliable): `concurrency=3, delay_ms=250`
+- **Balanced** (recommended): `concurrency=8, delay_ms=150` ← Default
+- **Aggressive** (fast, may hit rate limits): `concurrency=15, delay_ms=100`
+
+## Output Structure
+
+```
+out/
+├── runs/
+│   └── YYYYMMDD-HHMMSS/
+│       ├── results.json    # Full structured data
+│       └── results.csv     # Sortable/filterable
+├── results.json            # Ledger of all runs
+├── results.csv            # Combined CSV ledger
+└── available-domains.txt  # Unique available domains
+```
+
+## Results Interpretation
+
+- **available**: Domain can be registered
+- **taken**: Domain is registered
+- **unknown**: Could not determine (requires manual check)
+
+Domains marked "unknown" should be verified manually at [InstantDomainSearch.com](https://instantdomainsearch.com).
 
 ## Requirements
-- Node.js 18+ (uses built-in `fetch`)
+
 - Python 3.10+
-- A Firecrawl API key in `FIRECRAWL_API_KEY`
-- A Firecrawl API base URL in `FIRECRAWL_API_URL` (optional)
-  - Local default: `http://localhost:3002`
-  - Cloud example: `https://api.firecrawl.dev`
+- Firecrawl API access (local or cloud)
+- API key format: `fc-<uuid-without-dashes>` or raw UUID
 
-Both scripts will also try to auto-load the repo root `.env` if present (without overriding existing environment variables). If you store your key as `TEST_API_KEY`, that works too.
+## API Key Format
 
-## Run
-From repo root:
+If using `USE_DB_AUTHENTICATION=true`:
+- ✅ `fc-31dba252482749989356775a972cd48a` (no dashes)
+- ✅ `31dba252-4827-4998-9356-775a972cd48a` (raw UUID)
+- ❌ `fc-31dba252-4827-4998-9356-775a972cd48a` (fc- with dashes)
 
-```powershell
-$env:FIRECRAWL_API_KEY = "fc-..."
-# Optional:
-$env:FIRECRAWL_API_URL = "http://localhost:3002"
+## Archived Files
 
-node .\examples\domain-availability\check-domains.mjs
-```
+- `archive/scripts/` - Old versions (Node.js, non-optimized Python)
+- `archive/domain-lists/` - Previous domain list iterations
+- `archive/analysis/` - Debugging analysis, bug fix documentation
 
-Python:
+## Notes
 
-```powershell
-$env:FIRECRAWL_API_KEY = "fc-..."
-# Optional:
-$env:FIRECRAWL_API_URL = "http://localhost:3002"
-
-python .\examples\domain-availability\check-domains.py
-```
-
-### API key format (important)
-If `USE_DB_AUTHENTICATION=true` is enabled on your Firecrawl API, the token must be either:
-- The raw UUID with dashes (as stored in the `api_keys.key` column), e.g. `31dba252-4827-4998-9356-775a972cd48a`
-- OR the `fc-` form **without dashes**, e.g. `fc-31dba252482749989356775a972cd48a`
-
-If you use `fc-` *with* dashes (like `fc-31dba252-...`), the API will reject it as `Unauthorized: Invalid token`.
-
-### Windows networking tip
-If `http://localhost:3002` ever behaves oddly on Windows (e.g., an “Empty reply from server”), try:
-- `http://127.0.0.1:3002`
-
-## Notes / caveats
-- This uses a third-party UI site (InstantDomainSearch). If they change markup or add bot protection, results can degrade.
-- For “authoritative” availability, registrar/RDAP/WHOIS APIs are typically more reliable. This tool is meant for fast ideation and triage.
-
-## Related
-There is also a PowerShell version in `apps/api/scripts/check-domains.ps1`.
+- Uses InstantDomainSearch UI scraping (not authoritative WHOIS)
+- For production verification, use registrar/RDAP/WHOIS APIs
+- False positives eliminated as of 2026-01-30 (see `archive/analysis/RESULTS_COMPARISON.md`)
