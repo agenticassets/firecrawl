@@ -1,0 +1,54 @@
+# Combined Unordered Name List (Brief Rationales)
+
+Alphabetical order only (not a ranking). Includes: prior picks, codebase Top-20,
+and the user-supplied names.
+
+- **aequi.ai** — Latin root of equity; timeless institutional gravitas.
+- **amort.ai** — Amortization is core CRE underwriting; crisp and professional.
+- **bonir.ai** — Bond/bon- root; debt-market resonance in 5 letters.
+- **cairr.ai** — "C + IRR" shorthand; PE-native performance signal.
+- **capirr.ai** — Capital + IRR; direct investing metric framing.
+- **capor.ai** — Capital root + "-or" agent suffix; boardroom tone.
+- **capro.ai** — Capital + professional; compact, firm-like brand feel.
+- **credor.ai** — Credit/credibility association; trust and rigor.
+- **cregentic.ai** — CRE + agentic; explicit vertical AI positioning.
+- **cregentic.com** — Same meaning with .com authority; longer but clear.
+- **creor.ai** — Credit/CRE root + "-or"; clean and institutional.
+- **duron.ai** — Durable/endurant sound; stable, serious feel.
+- **ebit.ai** — Universal finance metric; instant credibility.
+- **evidor.ai** — Evidence-forward; aligns with auditable deliverables.
+- **equir.ai** — Equity root + "-ir"; boardroom-friendly sound.
+- **eqin.ai** — Equity shorthand; compact, modern, and metric-adjacent.
+- **equor.ai** — Orbis-adjacent + equity resonance; strong brand weight.
+- **factix.ai** — "Facts-first" tone; sharp, analytical ending.
+- **fidin.ai** — Fiduciary duty root; trust-heavy signal.
+- **fidis.ai** — *Fides* (trust/faith); concise and authoritative.
+- **fidur.ai** — Fiduciary-derived; clean but slightly softer.
+- **frontirr.ai** — Frontier + IRR; forward returns, longer construct.
+- **fundon.ai** — Fund-forward; direct capital markets fit.
+- **integ.ai** — Integrity/integration; disciplined, institutional.
+- **jaxor.ai (assumed)** — Hard-edged and modern, but abstract.
+- **levir.ai** — Leverage is PE/CRE core; short and serious.
+- **lucri.ai** — Latin profit root (lucrative); ROI-centric.
+- **lusent.ai** — Lucent/clarity cue; visibility and insight.
+- **metrex.ai** — Metrics/measurement; analytical, rigorous.
+- **norme.ai** — Norms/standards; signals rigor and method.
+- **onset.ai** — Speed/starting point; urgency and action.
+- **pacis.ai** — Peace/stability; risk-managed tone.
+- **pacton.ai** — Pact/commitment; deal integrity vibe.
+- **paritas.ai** — Parity/fairness; institutional balance.
+- **prael.ai** — "Ahead of" (prae-); foresight positioning.
+- **provero.ai** — "To prove/true"; evidence-first alignment.
+- **provyn.ai** — "Prove" + modern ending; verification theme.
+- **quantirr.ai (assumed)** — Quant + IRR; performance-metric emphasis.
+- **rectix.ai** — Rectify/correctness; precision and rigor.
+- **rexir.ai** — *Rex* (authority); commanding tone.
+- **struxer.ai** — Structure/foundation; disciplined delivery.
+- **tenax.ai** — Tenacious/tenancy; strength and durability.
+- **valir.ai** — Value root (valor-adjacent); clean and credible.
+- **valirr.ai** — Valor/value + IRR; performance-centric.
+- **valox.ai** — Value + sharp ending; modern but serious.
+- **vairr.ai** — Value + IRR; concise finance signal.
+- **vectirr.ai** — Vector/trajectory + IRR; vectirr.com also available.
+- **vestix.ai** — Vest/vested; investment posture and commitment.
+- **videre.ai** — Latin "to see"; clarity and insight.
