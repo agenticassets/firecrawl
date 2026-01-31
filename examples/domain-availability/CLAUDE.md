@@ -1,91 +1,124 @@
-# Domain Availability Checker - Context for Claude
+# Domain Availability Checker - Agent Guide
 
 ## What This Does
 
-Bulk domain availability checker that scrapes InstantDomainSearch.com via Firecrawl API. Uses concurrent requests with AI extraction + markdown fallback parsing.
+Bulk domain availability checker that uses Playwright with stealth to scrape InstantDomainSearch.com. Bypasses Vercel bot detection via `playwright-stealth`.
 
-## Current State (2026-01-30)
+## Scripts
 
-**Production Script**: `check-domains-optimized.py`
-- All critical bugs fixed (sequential if/elif, pre-allocated arrays, concurrency tuning)
-- Performance: ~5 min for 200 domains
-- Reliability: 0 false positives, >90% extraction success
-- Settings: 8 workers, 150ms delay (balanced for reliability)
+| Script | Status | Purpose |
+|--------|--------|---------|
+| `check-domains-playwright.py` | **Active** | Playwright + stealth browser. Works. |
+| `check-domains-optimized.py` | **Deprecated** | Firecrawl-based. Blocked by Vercel security checkpoint as of 2026-01-30. |
+
+## Quick Start
+
+```bash
+# Install deps (one-time)
+pip install playwright playwright-stealth
+playwright install chromium
+
+# Check domains from domains.txt
+python check-domains-playwright.py
+
+# Check from custom file
+python check-domains-playwright.py -i my-list.txt
+
+# Force re-check (skip dedup)
+python check-domains-playwright.py -i my-list.txt --no-skip
+```
+
+## How It Works
+
+1. Reads domain list from input file (one domain per line, `#` comments allowed)
+2. Loads already-checked domains from `out/results.json` to skip duplicates
+3. Launches headless Chromium with `playwright-stealth` to bypass bot detection
+4. For each domain, navigates to `https://instantdomainsearch.com/?q={domain}`
+5. Parses page text for status indicators after the domain name line:
+   - `"Continue"` → **available**
+   - `"Lookup"` / `"Make offer"` / `"WHOIS"` → **taken**
+   - `"$..."` (price) → **taken** (premium listing)
+6. Saves results to `out/runs/{timestamp}/` and appends to `out/results.json`
 
 ## Architecture
 
-1. **Concurrent processing**: ThreadPoolExecutor with configurable workers/delays
-2. **Dual extraction**:
-   - Primary: AI-based extraction (fast, high accuracy when not rate-limited)
-   - Fallback: Window-based markdown parsing (50-line window around domain)
-3. **Results ordering**: Pre-allocated array indexed by domain position
-4. **Checkpointing**: Incremental saves every batch for resumability
+```
+check-domains-playwright.py
+├── parse_domains()           # Read + deduplicate input file
+├── load_checked_domains()    # Skip already-checked from results.json
+├── check_single_domain()     # Navigate + parse one domain
+├── check_domains_batch()     # Sequential loop with single browser
+└── main()                    # CLI, orchestration, output
+```
+
+**Sequential processing** (not threaded): Playwright's sync API uses greenlets internally and cannot be used across Python threads. One browser → one context → one page → reused for all domains.
 
 ## Critical Code Patterns
 
-### Markdown Parsing (Fixed)
+### Page Text Parsing
 ```python
-# Window-based parsing with proper elif chain
-if "make offer" in window_text or "whois" in window_text:
-    availability = "taken"
-elif "continue" in window_text:  # MUST be elif, not if
-    availability = "available"
+# Find the domain name in page text, then check the NEXT lines
+for i, line in enumerate(lines):
+    if stripped.lower() == domain.lower():
+        for j in range(i + 1, min(i + 8, len(lines))):
+            next_line = lines[j].strip().lower()
+            if next_line == "continue":
+                availability = "available"
+                break
+            elif next_line in ("lookup", "make offer", "whois"):
+                availability = "taken"
+                break
 ```
 
-**Why elif matters**: Sequential `if` allows "continue" to overwrite correct "taken" status when both keywords present (common in UI cards).
+**Why `break` after first match**: The page contains multiple sections (main result, extensions, suggestions). The first occurrence of the exact domain name is the authoritative result.
 
-### Results Array (Fixed)
+### Bot Detection Bypass
 ```python
-# Pre-allocated to maintain domain order with concurrent completion
-results = [None] * len(domains_to_check)
-futures = {pool.submit(worker, domain, i): i for i, domain in enumerate(domains_to_check)}
-for fut in as_completed(futures):
-    i = futures[fut]
-    results[i] = fut.result()  # Assign to correct index, not append
+from playwright_stealth import Stealth
+stealth = Stealth()
+browser = p.chromium.launch(
+    headless=True,
+    args=["--disable-blink-features=AutomationControlled"],
+)
+context = browser.new_context(
+    user_agent="Mozilla/5.0 (Windows NT 10.0; Win64; x64) ...",
+    viewport={"width": 1920, "height": 1080},
+    locale="en-US",
+)
+stealth.apply_stealth_sync(context)
 ```
 
-## Known Issues & Limitations
+**Why stealth is needed**: InstantDomainSearch runs on Vercel, which has JavaScript-based bot detection (Code 21 challenge). Regular headless browsers and Firecrawl both get blocked. `playwright-stealth` patches the browser fingerprint to pass these checks.
 
-- InstantDomainSearch may change markup (requires maintenance)
-- "Unknown" results require manual verification
-- Not authoritative (use WHOIS/RDAP for production)
-- Rate limiting possible if concurrency too high (>10 workers)
+## Output Structure
 
-## Performance Trade-offs
+```
+out/
+├── runs/
+│   └── YYYYMMDD-HHMMSS/
+│       ├── results.json    # This run's full data
+│       └── results.csv     # Sortable spreadsheet format
+├── results.json            # Ledger of ALL runs (append-only)
+└── available-domains.txt   # Deduplicated list of all available domains
+```
 
-| Setting | Speed | Reliability | Use Case |
-|---------|-------|-------------|----------|
-| 3 workers, 250ms | ~23 min | Very high | Conservative |
-| 8 workers, 150ms | ~5 min | High | **Recommended** |
-| 15 workers, 100ms | ~2 min | Low (rate limits) | Testing only |
+## Known Issues
 
-## Archive Contents
-
-- `archive/analysis/` - Complete debugging history, root cause analysis, architectural evolution
-  - **Key docs**: `RESULTS_COMPARISON.md`, `FIXES_APPLIED.md`, `ARCHITECTURE_EVOLUTION.md`
-- `archive/scripts/` - Old implementations (Node.js, sequential Python)
-- `archive/domain-lists/` - Previous domain list iterations
-
-## When Making Changes
-
-1. **Test with small set** (`domains-test.txt` in archive if needed)
-2. **Never change elif to if** in markdown parsing
-3. **Maintain pre-allocated results array** pattern
-4. **Don't increase concurrency beyond 10** without testing
-5. **Update README.md** if config options change
+- **3-second sleep per domain**: Required for dynamic content rendering. Faster checks miss results.
+- **Sequential only**: ~5 seconds per domain (3s render + delay). 100 domains ≈ 8 minutes.
+- **InstantDomainSearch markup may change**: If results suddenly show all "unknown," the page structure likely changed. Inspect page text manually to update parsing logic.
+- **Not authoritative**: Use WHOIS/RDAP for final purchase verification.
 
 ## Dependencies
 
 - Python 3.10+
-- `requests` library
-- Firecrawl API (local or cloud)
-- Environment variables via `.env` file
+- `playwright` + `playwright-stealth`
+- Chromium browser (installed via `playwright install chromium`)
+- No Firecrawl or API keys needed
 
-## Testing
+## When Making Changes
 
-Run with test domains first:
-```python
-# Create test file with 5 domains
-python check-domains-optimized.py -i test-domains.txt
-# Verify no false positives before full run
-```
+1. **Test with known domains first**: capro.ai (available), google.ai (taken)
+2. **Don't add threading**: Playwright sync API + greenlets = crash
+3. **Don't reduce the 3-second sleep**: Dynamic content won't render
+4. **Update this file** if parsing logic or output format changes

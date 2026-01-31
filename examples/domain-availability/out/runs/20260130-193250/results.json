@@ -1,0 +1,61 @@
+{
+  "runId": "20260130-193250",
+  "startedAt": "2026-01-30T19:32:50.772726+00:00",
+  "finishedAt": "2026-01-30T19:32:59.878830+00:00",
+  "apiUrl": "http://localhost:3002",
+  "scrapePath": "/v1/scrape",
+  "count": 4,
+  "successCount": 4,
+  "failureCount": 0,
+  "skippedCount": 0,
+  "results": [
+    {
+      "domain": "capro.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=capro.ai",
+      "index": 1,
+      "timestamp": "2026-01-30T19:32:50.795722+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "eqin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=eqin.ai",
+      "index": 2,
+      "timestamp": "2026-01-30T19:32:50.797129+00:00",
+      "ok": true,
+      "availability": "unknown",
+      "price": null,
+      "notes": "Domain not found in markdown",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "capirr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=capirr.ai",
+      "index": 3,
+      "timestamp": "2026-01-30T19:32:50.797983+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "Found 'Make offer/WHOIS' near domain; No domain-specific price found",
+      "hasExtract": false,
+      "hasMarkdown": true
+    },
+    {
+      "domain": "equor.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=equor.ai",
+      "index": 4,
+      "timestamp": "2026-01-30T19:32:50.798482+00:00",
+      "ok": true,
+      "availability": "unknown",
+      "price": null,
+      "notes": "Domain not found in markdown",
+      "hasExtract": false,
+      "hasMarkdown": true
+    }
+  ]
+}

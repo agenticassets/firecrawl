@@ -1,0 +1,35 @@
+{
+  "runId": "20260130-194412",
+  "startedAt": "2026-01-30T19:44:12.120029+00:00",
+  "finishedAt": "2026-01-30T19:44:16.134166+00:00",
+  "count": 4,
+  "successCount": 0,
+  "failureCount": 4,
+  "skippedCount": 0,
+  "results": [
+    {
+      "domain": "capro.ai",
+      "ok": false,
+      "error": "Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x000001559A2A0840 (otid=0x00000155996FA700) current active started main>\n\tExpected: <greenlet.greenlet object at 0x00000155975C4DC0 (otid=0x00000155996C7F90) suspended active started main>",
+      "timestamp": "2026-01-30T19:44:14.457133+00:00"
+    },
+    {
+      "domain": "eqin.ai",
+      "ok": false,
+      "error": "Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x000001559A2A09C0 (otid=0x000001559A0C4E70) current active started main>\n\tExpected: <greenlet.greenlet object at 0x00000155975C4DC0 (otid=0x00000155996C7F90) suspended active started main>",
+      "timestamp": "2026-01-30T19:44:14.456448+00:00"
+    },
+    {
+      "domain": "capirr.ai",
+      "ok": false,
+      "error": "Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x000001559A2A09C0 (otid=0x000001559A0C4E70) current active started main>\n\tExpected: <greenlet.greenlet object at 0x00000155975C4DC0 (otid=0x00000155996C7F90) suspended active started main>",
+      "timestamp": "2026-01-30T19:44:14.457581+00:00"
+    },
+    {
+      "domain": "equor.ai",
+      "ok": false,
+      "error": "Cannot switch to a different thread\n\tCurrent:  <greenlet.greenlet object at 0x000001559A2A0840 (otid=0x00000155996FA700) current active started main>\n\tExpected: <greenlet.greenlet object at 0x00000155975C4DC0 (otid=0x00000155996C7F90) suspended active started main>",
+      "timestamp": "2026-01-30T19:44:14.457906+00:00"
+    }
+  ]
+}

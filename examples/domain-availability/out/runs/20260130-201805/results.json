@@ -1,0 +1,713 @@
+{
+  "runId": "20260130-201805",
+  "startedAt": "2026-01-30T20:18:05.927775+00:00",
+  "finishedAt": "2026-01-30T20:25:05.697288+00:00",
+  "count": 78,
+  "successCount": 78,
+  "failureCount": 0,
+  "skippedCount": 0,
+  "results": [
+    {
+      "domain": "capvr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=capvr.ai",
+      "timestamp": "2026-01-30T20:18:10.537630+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "caprn.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=caprn.ai",
+      "timestamp": "2026-01-30T20:18:16.730719+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "equvr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=equvr.ai",
+      "timestamp": "2026-01-30T20:18:21.766889+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "eqorn.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=eqorn.ai",
+      "timestamp": "2026-01-30T20:18:26.531910+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "valvr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=valvr.ai",
+      "timestamp": "2026-01-30T20:18:31.677004+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "valrn.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=valrn.ai",
+      "timestamp": "2026-01-30T20:18:36.772478+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "funvr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=funvr.ai",
+      "timestamp": "2026-01-30T20:18:42.565787+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "credm.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=credm.ai",
+      "timestamp": "2026-01-30T20:18:48.350307+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "credn.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=credn.ai",
+      "timestamp": "2026-01-30T20:18:53.399518+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "fidvr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=fidvr.ai",
+      "timestamp": "2026-01-30T20:18:59.274773+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "asirr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=asirr.ai",
+      "timestamp": "2026-01-30T20:19:04.478635+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "portr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=portr.ai",
+      "timestamp": "2026-01-30T20:19:09.541492+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": "$5,000",
+      "notes": "Price $5,000 in extensions"
+    },
+    {
+      "domain": "yeirr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=yeirr.ai",
+      "timestamp": "2026-01-30T20:19:15.410585+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "lvirr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=lvirr.ai",
+      "timestamp": "2026-01-30T20:19:20.506147+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "cavrr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=cavrr.ai",
+      "timestamp": "2026-01-30T20:19:26.333533+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "praex.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=praex.ai",
+      "timestamp": "2026-01-30T20:19:31.369044+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "preon.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=preon.ai",
+      "timestamp": "2026-01-30T20:19:37.150799+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "plexo.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=plexo.ai",
+      "timestamp": "2026-01-30T20:19:42.944230+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "cruxo.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=cruxo.ai",
+      "timestamp": "2026-01-30T20:19:48.701320+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "arxis.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=arxis.ai",
+      "timestamp": "2026-01-30T20:19:54.583504+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "forox.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=forox.ai",
+      "timestamp": "2026-01-30T20:19:59.642178+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "celox.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=celox.ai",
+      "timestamp": "2026-01-30T20:20:05.417914+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "ferox.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=ferox.ai",
+      "timestamp": "2026-01-30T20:20:10.523631+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": "$24,700",
+      "notes": "Price $24,700 in extensions"
+    },
+    {
+      "domain": "prion.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=prion.ai",
+      "timestamp": "2026-01-30T20:20:16.334499+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": "$24,999",
+      "notes": "Price $24,999 in extensions"
+    },
+    {
+      "domain": "trion.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=trion.ai",
+      "timestamp": "2026-01-30T20:20:21.065780+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Make offer' in extensions section"
+    },
+    {
+      "domain": "crion.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=crion.ai",
+      "timestamp": "2026-01-30T20:20:25.873512+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "voxir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=voxir.ai",
+      "timestamp": "2026-01-30T20:20:31.662492+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "voxen.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=voxen.ai",
+      "timestamp": "2026-01-30T20:20:36.731585+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "voxis.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=voxis.ai",
+      "timestamp": "2026-01-30T20:20:41.457239+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "nexor.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=nexor.ai",
+      "timestamp": "2026-01-30T20:20:47.308359+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Make offer' in extensions section"
+    },
+    {
+      "domain": "velon.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=velon.ai",
+      "timestamp": "2026-01-30T20:20:52.043653+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "velin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=velin.ai",
+      "timestamp": "2026-01-30T20:20:56.864197+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "velir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=velir.ai",
+      "timestamp": "2026-01-30T20:21:02.615517+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "velor.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=velor.ai",
+      "timestamp": "2026-01-30T20:21:07.687016+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "felon.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=felon.ai",
+      "timestamp": "2026-01-30T20:21:12.448963+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": "$3,888",
+      "notes": "Price $3,888 in extensions"
+    },
+    {
+      "domain": "pilon.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=pilon.ai",
+      "timestamp": "2026-01-30T20:21:18.230869+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "tilon.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=tilon.ai",
+      "timestamp": "2026-01-30T20:21:24.002305+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "sidon.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=sidon.ai",
+      "timestamp": "2026-01-30T20:21:28.721814+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "silen.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=silen.ai",
+      "timestamp": "2026-01-30T20:21:33.858424+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "filon.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=filon.ai",
+      "timestamp": "2026-01-30T20:21:38.671143+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "cairn.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=cairn.ai",
+      "timestamp": "2026-01-30T20:21:43.424139+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "calin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=calin.ai",
+      "timestamp": "2026-01-30T20:21:48.491786+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "calir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=calir.ai",
+      "timestamp": "2026-01-30T20:21:54.233778+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "celin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=celin.ai",
+      "timestamp": "2026-01-30T20:21:59.275595+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "celir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=celir.ai",
+      "timestamp": "2026-01-30T20:22:04.388530+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "culin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=culin.ai",
+      "timestamp": "2026-01-30T20:22:10.366490+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "culir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=culir.ai",
+      "timestamp": "2026-01-30T20:22:16.299531+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "falin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=falin.ai",
+      "timestamp": "2026-01-30T20:22:22.185472+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "falir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=falir.ai",
+      "timestamp": "2026-01-30T20:22:27.363395+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "felin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=felin.ai",
+      "timestamp": "2026-01-30T20:22:32.529044+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "felir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=felir.ai",
+      "timestamp": "2026-01-30T20:22:38.363511+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "fulin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=fulin.ai",
+      "timestamp": "2026-01-30T20:22:44.202935+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "fulir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=fulir.ai",
+      "timestamp": "2026-01-30T20:22:49.042926+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "galin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=galin.ai",
+      "timestamp": "2026-01-30T20:22:54.116492+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "galir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=galir.ai",
+      "timestamp": "2026-01-30T20:22:59.180044+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "palin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=palin.ai",
+      "timestamp": "2026-01-30T20:23:03.887443+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "palir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=palir.ai",
+      "timestamp": "2026-01-30T20:23:09.642611+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "salin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=salin.ai",
+      "timestamp": "2026-01-30T20:23:15.441181+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "salir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=salir.ai",
+      "timestamp": "2026-01-30T20:23:20.149289+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "talin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=talin.ai",
+      "timestamp": "2026-01-30T20:23:25.301618+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "talir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=talir.ai",
+      "timestamp": "2026-01-30T20:23:30.156620+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "valin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=valin.ai",
+      "timestamp": "2026-01-30T20:23:36.064458+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "vilin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=vilin.ai",
+      "timestamp": "2026-01-30T20:23:41.883944+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "vilir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=vilir.ai",
+      "timestamp": "2026-01-30T20:23:46.952040+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "vair.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=vair.ai",
+      "timestamp": "2026-01-30T20:23:52.742675+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "cair.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=cair.ai",
+      "timestamp": "2026-01-30T20:23:57.478660+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": "$62,495",
+      "notes": "Price $62,495 in extensions"
+    },
+    {
+      "domain": "fuir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=fuir.ai",
+      "timestamp": "2026-01-30T20:24:02.241054+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "tair.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=tair.ai",
+      "timestamp": "2026-01-30T20:24:08.068937+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "sair.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=sair.ai",
+      "timestamp": "2026-01-30T20:24:13.120044+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "veir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=veir.ai",
+      "timestamp": "2026-01-30T20:24:18.265251+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "reir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=reir.ai",
+      "timestamp": "2026-01-30T20:24:23.004036+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": "$17,599",
+      "notes": "Price $17,599 in extensions"
+    },
+    {
+      "domain": "leir.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=leir.ai",
+      "timestamp": "2026-01-30T20:24:28.766538+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "yirex.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=yirex.ai",
+      "timestamp": "2026-01-30T20:24:33.859681+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "noial.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=noial.ai",
+      "timestamp": "2026-01-30T20:24:38.992937+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "roial.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=roial.ai",
+      "timestamp": "2026-01-30T20:24:44.081676+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "capex.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=capex.ai",
+      "timestamp": "2026-01-30T20:24:49.884896+00:00",
+      "ok": true,
+      "availability": "taken",
+      "price": null,
+      "notes": "'Lookup' in extensions section"
+    },
+    {
+      "domain": "axirr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=axirr.ai",
+      "timestamp": "2026-01-30T20:24:54.873301+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "oxirr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=oxirr.ai",
+      "timestamp": "2026-01-30T20:25:00.753305+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    }
+  ]
+}

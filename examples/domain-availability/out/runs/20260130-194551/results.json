@@ -1,0 +1,47 @@
+{
+  "runId": "20260130-194551",
+  "startedAt": "2026-01-30T19:45:51.479900+00:00",
+  "finishedAt": "2026-01-30T19:46:17.355448+00:00",
+  "count": 4,
+  "successCount": 4,
+  "failureCount": 0,
+  "skippedCount": 0,
+  "results": [
+    {
+      "domain": "capro.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=capro.ai",
+      "timestamp": "2026-01-30T19:45:57.006325+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "eqin.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=eqin.ai",
+      "timestamp": "2026-01-30T19:46:02.240736+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "capirr.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=capirr.ai",
+      "timestamp": "2026-01-30T19:46:07.476921+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    },
+    {
+      "domain": "equor.ai",
+      "searchUrl": "https://instantdomainsearch.com/?q=equor.ai",
+      "timestamp": "2026-01-30T19:46:12.638232+00:00",
+      "ok": true,
+      "availability": "available",
+      "price": null,
+      "notes": "'Continue' in extensions section"
+    }
+  ]
+}
