@@ -10,7 +10,10 @@ and the user-supplied names.
 - **capirr.ai** — Capital + IRR; direct investing metric framing.
 - **capor.ai** — Capital root + "-or" agent suffix; boardroom tone.
 - **capro.ai** — Capital + professional; compact, firm-like brand feel.
+- **cobis.ai** — Orbis-adjacent sound; short, institutional cadence.
+- **corbis.ai** — Orbis-adjacent with Latin "cor" feel; credible and classic.
 - **credor.ai** — Credit/credibility association; trust and rigor.
+- **crealpha.ai** — CRE + alpha; explicit performance/returns signal.
 - **cregentic.ai** — CRE + agentic; explicit vertical AI positioning.
 - **cregentic.com** — Same meaning with .com authority; longer but clear.
 - **creor.ai** — Credit/CRE root + "-or"; clean and institutional.
@@ -43,6 +46,7 @@ and the user-supplied names.
 - **quantirr.ai (assumed)** — Quant + IRR; performance-metric emphasis.
 - **rectix.ai** — Rectify/correctness; precision and rigor.
 - **rexir.ai** — *Rex* (authority); commanding tone.
+- **rocai.ai** — ROC (return on capital) + AI; compact performance cue.
 - **struxer.ai** — Structure/foundation; disciplined delivery.
 - **tenax.ai** — Tenacious/tenancy; strength and durability.
 - **valir.ai** — Value root (valor-adjacent); clean and credible.
